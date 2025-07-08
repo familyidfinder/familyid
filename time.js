@@ -1,28 +1,23 @@
-    let countdownTime = 1 * 30; // 5 minutes in seconds
-    let timer;
+  let sessionTime = 1800; // 30 minutes in seconds
 
-    function updateCountdown() {
-      const minutes = String(Math.floor(countdownTime / 60)).padStart(2, '0');
-      const seconds = String(countdownTime % 60).padStart(2, '0');
-      document.getElementById('countdown').textContent = `Session Time Remaining: ${minutes}:${seconds}`;
+  const minutesSpan = document.getElementById("minutes");
+  const secondsSpan = document.getElementById("seconds");
 
-      if (countdownTime > 0) {
-        countdownTime--;
-      } else {
-        clearInterval(timer);
-        alert("Session expired! Redirecting to login...");
-        window.location.href = "login.html"; // Redirect or logout
-      }
+  const updateTimer = () => {
+    const minutes = Math.floor(sessionTime / 60);
+    const seconds = sessionTime % 60;
+
+    minutesSpan.textContent = minutes.toString().padStart(2, '0');
+    secondsSpan.textContent = seconds.toString().padStart(2, '0');
+
+    if (sessionTime <= 0) {
+      clearInterval(timer);
+      alert("Session expired. Redirecting to login.");
+      window.location.href = "login.html"; // Replace with your login or re-auth URL
     }
 
-    // Start countdown
-    timer = setInterval(updateCountdown, 1000);
+    sessionTime--;
+  };
 
-    // Optional: Reset timer on activity
-    function resetTimer() {
-      countdownTime = 1 * 30; // Reset to 5 mins
-    }
-
-    ['mousemove', 'keydown', 'click'].forEach(event =>
-      document.addEventListener(event, resetTimer)
-    );
+  updateTimer(); // Initialize display
+  const timer = setInterval(updateTimer, 1000);
