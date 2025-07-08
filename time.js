@@ -14,9 +14,7 @@ let sessionTime = 1800; // 30 minutes in seconds
       alert("Session expired. Redirecting to login.");
       window.location.href = "login.html"; // Replace with your login or re-auth URL
     }
-
     sessionTime--;
   };
-
   updateTimer(); // Initialize display
   const timer = setInterval(updateTimer, 1000);
