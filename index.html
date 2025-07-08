@@ -23,20 +23,25 @@
     -->
     <script src="https://www.gstatic.com/firebasejs/10.X.X/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.X.X/firebase-auth-compat.js"></script>
-    <script>
-        // Replace with your actual project config from Firebase Console
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "d-45-177f3.firebaseapp.com", // This matches your authorized domain!
-            projectId: "d-45-177f3",
-            storageBucket: "d-45-177f3.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAIInOuFA0oMsv1dOn4h5-ZPg5fT8xs0k8",
+    authDomain: "d-45-177f3.firebaseapp.com",
+    projectId: "d-45-177f3",
+    storageBucket: "d-45-177f3.firebasestorage.app",
+    messagingSenderId: "142681750542",
+    appId: "1:142681750542:web:89340b9c374a2488b6505f"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
 
     <!-- Now, for your custom login logic! -->
     <script>
