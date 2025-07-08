@@ -74,7 +74,6 @@
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Signed in successfully! onAuthStateChanged will handle the UI update.
-                    console.log("User signed in:", userCredential.user.email);
                      window.location.href = "https://familyidfinder.github.io/familyid/ppp-find.html"; // Redirect to next page
                 })
                 .catch((error) => {
