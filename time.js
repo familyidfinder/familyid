@@ -20,7 +20,7 @@
 
     // Optional: Reset timer on activity
     function resetTimer() {
-      countdownTime = 5 * 60; // Reset to 5 mins
+      countdownTime = 1 * 30; // Reset to 5 mins
     }
 
     ['mousemove', 'keydown', 'click'].forEach(event =>
