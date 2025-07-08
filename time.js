@@ -1,5 +1,5 @@
   // Set the session timeout duration (e.g., 10 minutes)
-  const SESSION_TIMEOUT = 1 * 60 * 1000; // 10 minutes in milliseconds
+  const SESSION_TIMEOUT = 1 * 5 * 1000; // 10 minutes in milliseconds
   let timeout;
 
   // Redirect to login or another page after timeout
