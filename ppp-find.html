@@ -1,47 +1,86 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>PPP Family</title>
+  <meta charset="UTF-8">
+  <title>Connect to Haryana Pension Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f8ff;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      width: 400px;
+    }
+    h2 {
+      text-align: center;
+      color: #007bff;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
 </head>
 <body>
-   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script>
-  // Firebase config (same as in login page)
-  const firebaseConfig = {
-    apiKey: "AIzaSyAIInOuFA0oMsv1dOn4h5-ZPg5fT8xs0k8",
-    authDomain: "d-45-177f3.firebaseapp.com",
-    projectId: "d-45-177f3",
-    storageBucket: "d-45-177f3.appspot.com",
-    messagingSenderId: "142681750542",
-    appId: "1:142681750542:web:89340b9c374a2488b6505f"
-  };
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+  <div class="button-group">
+  <a href="https://familyidfinder.github.io/familyid/ppp-find.html" class="btn">Print Family ID</a>
+  <a href="https://pension.socialjusticehry.gov.in/Ben_Inf" class="btn">Track Beneficiary Pension Details</a>
+</div>
 
-  // Redirect to login page if user is not logged in
-  auth.onAuthStateChanged(function(user) {
-    if (!user) {
-      // Not signed in — redirect
-      window.location.href = "index.html"; // change to your actual login page
-    }
-  });
-</script>
-  <h1>PPP Family</h1>
-  <input type="text" id="familyId" placeholder="Enter Family ID" />
-  <button onclick="openFamilyDetails()">Search</button>
+<style>
+  .button-group {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    justify-content: center;
+    margin-top: 40px;
+  }
 
-  <script>
-    function openFamilyDetails() {
-      const familyId = document.getElementById("familyId").value.trim();
-      if (familyId) {
-        const redirectUrl = `https://ppp-office.haryana.gov.in/family/printfamilydetails?familyid=${encodeURIComponent(familyId)}`;
-        window.open(redirectUrl, '_blank');
-      } else {
-        alert("Please enter a family ID.");
-      }
-    }
-  </script>
-</body>
-</html>
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+</style>
