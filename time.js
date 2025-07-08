@@ -1,4 +1,4 @@
-    let countdownTime = 5 * 60; // 5 minutes in seconds
+    let countdownTime = 1 * 30; // 5 minutes in seconds
     let timer;
 
     function updateCountdown() {
