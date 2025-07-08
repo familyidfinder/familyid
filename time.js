@@ -1,4 +1,3 @@
-
   // Set the session timeout duration (e.g., 10 minutes)
   const SESSION_TIMEOUT = 1 * 60 * 1000; // 10 minutes in milliseconds
   let timeout;
