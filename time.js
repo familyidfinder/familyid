@@ -1,23 +1,28 @@
-  // Set the session timeout duration (e.g., 10 minutes)
-  const SESSION_TIMEOUT = 1 * 60 * 1000; // 10 minutes in milliseconds
-  let timeout;
+    let countdownTime = 5 * 60; // 5 minutes in seconds
+    let timer;
 
-  // Redirect to login or another page after timeout
-  function handleSessionTimeout() {
-    alert("Session expired due to inactivity.");
-    window.location.href = "index.html"; // Change to your login or home page
-  }
+    function updateCountdown() {
+      const minutes = String(Math.floor(countdownTime / 60)).padStart(2, '0');
+      const seconds = String(countdownTime % 60).padStart(2, '0');
+      document.getElementById('countdown').textContent = `Session Time Remaining: ${minutes}:${seconds}`;
 
-  // Reset the timeout on user activity
-  function resetSessionTimer() {
-    clearTimeout(timeout);
-    timeout = setTimeout(handleSessionTimeout, SESSION_TIMEOUT);
-  }
+      if (countdownTime > 0) {
+        countdownTime--;
+      } else {
+        clearInterval(timer);
+        alert("Session expired! Redirecting to login...");
+        window.location.href = "login.html"; // Redirect or logout
+      }
+    }
 
-  // Listen for user activity
-  ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
-    document.addEventListener(event, resetSessionTimer);
-  });
+    // Start countdown
+    timer = setInterval(updateCountdown, 1000);
 
-  // Start the timer initially
-  resetSessionTimer();
+    // Optional: Reset timer on activity
+    function resetTimer() {
+      countdownTime = 5 * 60; // Reset to 5 mins
+    }
+
+    ['mousemove', 'keydown', 'click'].forEach(event =>
+      document.addEventListener(event, resetTimer)
+    );
