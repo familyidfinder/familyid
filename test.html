@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background-color: #f4f4f4;
+    }
+    .login-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin: 10px;
+      transition: background-color 0.3s;
+    }
+    .login-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h2>Log Page</h2>
+  
+  <!-- Login Options -->
+  <a class="login-btn" href="https://ppp-office.haryana.gov.in/" target="_blank">Login to your Account</a>
+  <a class="login-btn" href="https://ppp-office.haryana.gov.in/CorrectionModule/SearchFamily" target="_blank">CorrectionModule</a>
+  <a class="login-btn" href="https://ppp-office.haryana.gov.in/CorrectionModuleStatus" target="_blank">CorrectionModuleStatus</a>
+
+  <!-- Session Timeout Script -->
+  <script>
+    const SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes
+    let sessionTimer;
+
+    function logoutSession() {
+      alert("Session expired. Please login again.");
+      window.location.href = "index.html"; // Redirects to this login page
+    }
+
+    function resetTimer() {
+      clearTimeout(sessionTimer);
+      sessionTimer = setTimeout(logoutSession, SESSION_TIMEOUT);
+    }
+
+    // Reset session timer on activity
+    window.onload = resetTimer;
+    document.onmousemove = resetTimer;
+    document.onkeypress = resetTimer;
+    document.onclick = resetTimer;
+    document.onscroll = resetTimer;
+  </script>
+</body>
+</html>
