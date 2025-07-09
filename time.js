@@ -20,7 +20,7 @@ let sessionTime = 30; // 30 minutes
 
       // Redirect after a short delay
       setTimeout(() => {
-        window.location.href = "login.html"; // Change to your login page
+        window.location.href = "index.html"; // Change to your login page
       }, 3000); // 3 seconds
     }
 
