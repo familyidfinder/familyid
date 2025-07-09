@@ -117,7 +117,7 @@
     }
   });
 </script>
-  <div class="vertical-button-group">
+  <div class="vertical-button">
   <br><a href="https://familyidfinder.github.io/familyid/ppp-find.html" class="btn">Print Family ID</a>
   <br><a href="https://pension.socialjusticehry.gov.in/Ben_Inf" class="btn">Track Beneficiary Pension Details</a>
   <br><a class="btn" href="https://ppp-office.haryana.gov.in/CorrectionModule/SearchFamily" target="_blank">CorrectionModule</a>
@@ -126,13 +126,18 @@
 </div>
 
 <style>
-  .vertical-button-group {
-    display: flex;
-    gap: 50px; /* Space between buttons */
-    justify-content: left;
-    margin-top: 40px;
-  }
-
+  .vertical-buttons {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 200px;
+      background-color: #343a40;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 60px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
   .btn {
     display: inline-block;
     padding: 12px 20px;
