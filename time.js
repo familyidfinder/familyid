@@ -29,3 +29,9 @@ let sessionTime = 30; // 30 minutes
 
   updateTimer(); // Initialize display
   const timer = setInterval(updateTimer, 1000);
+
+  function logoutNow() {
+    clearInterval(timer); // stop session timer
+    alert("You have been logged out.");
+    window.location.href = "index.html"; // change to your login page
+  }
