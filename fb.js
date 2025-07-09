@@ -1,7 +1,5 @@
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  // Firebase config (same as in login page)
-  const firebaseConfig = {
+   // Firebase config (same as in login page)
+   const firebaseConfig = {
     apiKey: "AIzaSyAIInOuFA0oMsv1dOn4h5-ZPg5fT8xs0k8",
     authDomain: "d-45-177f3.firebaseapp.com",
     projectId: "d-45-177f3",
