@@ -88,7 +88,7 @@
         .then(() => {
           document.getElementById("message").innerText = "✅ Logged in!";
           // Redirect if needed
-          // window.location.href = "dashboard.html";
+          window.location.href = "home.html";
         })
         .catch(error => {
           document.getElementById("message").innerText = "❌ " + error.message;
