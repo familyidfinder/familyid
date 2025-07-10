@@ -79,6 +79,19 @@
   </form>
   <div id="message"></div>
 </div>
+   <script>
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (email === demoEmail && password === demoPassword) {
+        alert("Login successful!");
+        window.location.href = "ppp-find.html"; // redirect to protected page
+      } else {
+        alert("Invalid email or password");
+      }
+    }
+  </script>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
