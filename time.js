@@ -30,8 +30,10 @@ let sessionTime = 1800; // 30 minutes
   updateTimer(); // Initialize display
   const timer = setInterval(updateTimer, 1000);
 
-  function logoutNow() {
+function logoutNow() {
+  firebase.auth().signOut().then(() => {
     clearInterval(timer); // stop session timer
     alert("You have been logged out.");
-    window.location.href = "index.html"; // change to your login page
-  }
+    window.location.href = "index.html";
+  });
+}
