@@ -1,32 +1,37 @@
-  // Set the session timeout duration (e.g., 10 minutes)
-  const SESSION_TIMEOUT = 1 * 60 * 1000; // 10 minutes in milliseconds
-  let timeout;
+let sessionTime = 30; // 30 minutes
+  const minutesSpan = document.getElementById("minutes");
+  const secondsSpan = document.getElementById("seconds");
+  const sessionTimerDiv = document.getElementById("session-timer");
+  const sessionExpiredDiv = document.getElementById("session-expired");
 
-  // Redirect to login or another page after timeout
-  function handleSessionTimeout() {
-    alert("Session expired due to inactivity.");
-    window.location.href = "index.html"; // Change to your login or home page
-  }
+  const updateTimer = () => {
+    const minutes = Math.floor(sessionTime / 60);
+    const seconds = sessionTime % 60;
 
-  // Reset the timeout on user activity
-  function resetSessionTimer() {
-    clearTimeout(timeout);
-    timeout = setTimeout(handleSessionTimeout, SESSION_TIMEOUT);
-  }
+    minutesSpan.textContent = minutes.toString().padStart(2, '0');
+    secondsSpan.textContent = seconds.toString().padStart(2, '0');
 
-  // Listen for user activity
-  ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
-    document.addEventListener(event, resetSessionTimer);
-  });
+    if (sessionTime <= 0) {
+      clearInterval(timer);
 
-  // Start the timer initially
-  resetSessionTimer();
+      // Hide timer, show red expired banner
+      sessionTimerDiv.style.display = 'none';
+      sessionExpiredDiv.style.display = 'block';
 
+      // Redirect after a short delay
+      setTimeout(() => {
+        window.location.href = "index.html"; // Change to your login page
+      }, 3000); // 3 seconds
+    }
 
-function logoutNow() {
-  firebase.auth().signOut().then(() => {
+    sessionTime--;
+  };
+
+  updateTimer(); // Initialize display
+  const timer = setInterval(updateTimer, 1000);
+
+  function logoutNow() {
     clearInterval(timer); // stop session timer
     alert("You have been logged out.");
-    window.location.href = "index.html";
-  });
-}
+    window.location.href = "index.html"; // change to your login page
+  }
