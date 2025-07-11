@@ -1,4 +1,4 @@
-let sessionTime = 30; // 30 minutes
+let sessionTime = 1800; // 30 minutes
   const minutesSpan = document.getElementById("minutes");
   const secondsSpan = document.getElementById("seconds");
   const sessionTimerDiv = document.getElementById("session-timer");
