@@ -9,18 +9,15 @@
       margin: 0;
       background-color: #f0f4f8;
     }
-
+    
     header {
       background-color: #005fa2;
       color: white;
       padding: 20px 0;
+      text-align: center;
       font-size: 24px;
       font-weight: bold;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .btn {
@@ -44,50 +41,33 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-
+    
+        /* Push main content right */
     .main-content {
       margin-left: 220px;
       padding: 20px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 40px;
-    }
-
+     .button-group {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    justify-content: center;
+    margin-top: 40px;
+  }
     #session-timer {
-      position: absolute;
       top: 10px;
-      right: 130px;
-      background-color: #28a745;
+      right: 20px;
+      background-color: #007bff;
       color: white;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 20px;
-      z-index: 9999;
-    }
-
-    #logout-btn {
       padding: 10px 16px;
-      background-color: #dc3545;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      position: absolute;
-      right: 21px;
-      top: 10px;
+      border-radius: 5px;
+      font-weight: bold;
       z-index: 9999;
+      font-size: 16px;
     }
 
     #session-expired {
       display: none;
       position: fixed;
-      top: 20px;
+      top: 5px;
       right: 20px;
       background-color: #dc3545;
       color: white;
@@ -97,6 +77,36 @@
       font-size: 16px;
       z-index: 10000;
     }
+  </style>
+</head>
+<body>
+     <header style="display: flex; align-items: center; justify-content: center; background-color: #005fa2; color: white; padding: 20px 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: relative;">
+     <img src="https://familyidfinder.github.io/familyid/hry.png" height="80" width="80" alt="Haryana Logo" style="position: absolute; left: 40px;">
+     <span style="font-size: 40px; font-weight: bold;">Govt. of Haryana - Services Portal</span>
+   <button onclick="logoutNow()" style="
+  padding: 10px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+   position: absolute;
+      right: 20px;
+      top: 50px;
+      right: 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 16px;
+      z-index: 9999;
+">
+  Logout
+</button>
+<span id="minutes">30</span>:<span id="seconds">00</span>
+<div id="session-expired">
+  Session Expired. Redirecting to login...
+</div>
+</header>
 </head>
 <body>
      <header style="display: flex; align-items: center; justify-content: center; background-color: #005fa2; color: white; padding: 20px 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: relative;">
