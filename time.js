@@ -1,26 +1,23 @@
-let countdownSeconds = 300; // 5 minutes
+let sessionTime = 1800; // 30 minutes in seconds
 
-    function updateTimerDisplay() {
-      const minutes = Math.floor(countdownSeconds / 60);
-      const seconds = countdownSeconds % 60;
-      document.getElementById("timer").textContent = 
-        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  const minutesSpan = document.getElementById("minutes");
+  const secondsSpan = document.getElementById("seconds");
+
+  const updateTimer = () => {
+    const minutes = Math.floor(sessionTime / 60);
+    const seconds = sessionTime % 60;
+
+    minutesSpan.textContent = minutes.toString().padStart(2, '0');
+    secondsSpan.textContent = seconds.toString().padStart(2, '0');
+
+    if (sessionTime <= 0) {
+      clearInterval(timer);
+      alert("Session expired. Redirecting to login.");
+      window.location.href = "login.html"; // Replace with your login or re-auth URL
     }
 
-    const timerInterval = setInterval(() => {
-      if (countdownSeconds > 0) {
-        countdownSeconds--;
-        updateTimerDisplay();
-      } else {
-        clearInterval(timerInterval);
-        alert("Session expired!");
-        window.location.href = "login.html"; // Redirect to login page
-      }
-    }, 1000);
+    sessionTime--;
+  };
 
-    updateTimerDisplay(); // Initial render
-
-    document.getElementById("logout").addEventListener("click", () => {
-      clearInterval(timerInterval);
-      window.location.href = "login.html"; // Redirect on logout
-    });
+  updateTimer(); // Initialize display
+  const timer = setInterval(updateTimer, 1000);
