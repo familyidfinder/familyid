@@ -1,10 +1,10 @@
   // Initial session time in seconds (30 minutes)
-  let sessionSeconds = 1 * 60;
+  let session-timer = 1 * 60;
 
   // Update the countdown timer display
   function updateSessionDisplay() {
-    const minutes = Math.floor(sessionSeconds / 60).toString().padStart(2, '0');
-    const seconds = (sessionSeconds % 60).toString().padStart(2, '0');
+    const minutes = Math.floor(session-timer / 60).toString().padStart(2, '0');
+    const seconds = (session-timer % 60).toString().padStart(2, '0');
     const sessionLabel = document.getElementById('session-timer');
     if (sessionLabel) {
       sessionLabel.textContent = `Session: ${minutes}:${seconds}`;
@@ -15,9 +15,9 @@ function updateActivity() {
 }
   // Countdown every second
   const countdownInterval = setInterval(() => {
-    sessionSeconds--;
+    session-timer--;
 
-    if (sessionSeconds <= 0) {
+    if (session-timer <= 0) {
       clearInterval(countdownInterval);
       alert("Session expired. Logging out.");
       window.location.href = "index.html"; // Replace with your login page
@@ -28,7 +28,7 @@ function updateActivity() {
 
   // Reset timer on user activity
   function resetTimer() {
-    sessionSeconds = 30 * 60;
+    session-timer = 30 * 60;
   }
 
   ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
