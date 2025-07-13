@@ -1,42 +1,20 @@
-(() => {
-  const warningDelay = 14 * 60 * 1000; // e.g., 14 min
-  const countdownSeconds = 60;
-  let countdownTimer, seconds;
+let countdownSeconds = 300; // 5 minutes = 300 seconds
+    const timerDisplay = document.getElementById("timer");
 
-  function showWarning() {
-    seconds = countdownSeconds;
-    document.getElementById('countdown').textContent = seconds;
-    document.getElementById('session-warning').style.display = 'block';
-    countdownTimer = setInterval(() => {
-      seconds--;
-      document.getElementById('countdown').textContent = seconds;
-      if (seconds <= 0) {
-        clearInterval(countdownTimer);
-        alert('Session expired – please log in again');
-        // Optional: redirect to login page
-        // window.location.href = '/login';
+    function updateTimer() {
+      const minutes = Math.floor(countdownSeconds / 60);
+      const seconds = countdownSeconds % 60;
+      timerDisplay.textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      if (countdownSeconds > 0) {
+        countdownSeconds--;
+      } else {
+        clearInterval(timerInterval);
+        alert("Session expired! Redirecting to login page.");
+        // window.location.href = "login.html"; // optional redirect
       }
-    }, 1000);
-  }
+    }
 
-  function resetWarning() {
-    clearInterval(countdownTimer);
-    document.getElementById('session-warning').style.display = 'none';
-    // Ping server or re-authenticate to extend session
-    fetch('/keep-session-alive');
-  }
-
-  document.getElementById('extend').addEventListener('click', resetWarning);
-
-  // Start warning timer after initial load
-  setTimeout(showWarning, warningDelay);
-
-  // Optional: reset warning if user activity is detected
-  ['click', 'keydown', 'mousemove', 'scroll'].forEach(evt =>
-    document.addEventListener(evt, () => {
-      clearTimeout(showWarning);
-      resetWarning();
-      setTimeout(showWarning, warningDelay);
-    })
-  );
-})();
+    const timerInterval = setInterval(updateTimer, 1000);
+    updateTimer(); // initial call to avoid 1-second delay
