@@ -1,36 +1,42 @@
- let countdownSeconds = 300; // 5 minutes = 300 seconds
-    let timerDisplay = document.getElementById("timer");
+(() => {
+  const warningDelay = 14 * 60 * 1000; // e.g., 14 min
+  const countdownSeconds = 60;
+  let countdownTimer, seconds;
 
-    function updateTimerDisplay() {
-      let minutes = Math.floor(countdownSeconds / 60);
-      let seconds = countdownSeconds % 60;
-      timerDisplay.textContent = 
-        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
+  function showWarning() {
+    seconds = countdownSeconds;
+    document.getElementById('countdown').textContent = seconds;
+    document.getElementById('session-warning').style.display = 'block';
+    countdownTimer = setInterval(() => {
+      seconds--;
+      document.getElementById('countdown').textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(countdownTimer);
+        alert('Session expired – please log in again');
+        // Optional: redirect to login page
+        // window.location.href = '/login';
+      }
+    }, 1000);
+  }
 
-    function startCountdown() {
-      updateTimerDisplay();
-      const interval = setInterval(() => {
-        countdownSeconds--;
-        updateTimerDisplay();
+  function resetWarning() {
+    clearInterval(countdownTimer);
+    document.getElementById('session-warning').style.display = 'none';
+    // Ping server or re-authenticate to extend session
+    fetch('/keep-session-alive');
+  }
 
-        if (countdownSeconds <= 0) {
-          clearInterval(interval);
-          alert("Session expired!");
-          window.location.href = "indext.html"; // Redirect after timeout
-        }
-      }, 1000);
-    }
+  document.getElementById('extend').addEventListener('click', resetWarning);
 
-    // Reset countdown on activity
-    function resetCountdown() {
-      countdownSeconds = 300;
-      updateTimerDisplay();
-    }
+  // Start warning timer after initial load
+  setTimeout(showWarning, warningDelay);
 
-    // Events to reset countdown
-    window.onload = startCountdown;
-    document.onmousemove = resetCountdown;
-    document.onkeypress = resetCountdown;
-    document.ontouchstart = resetCountdown;
-    document.onclick = resetCountdown;
+  // Optional: reset warning if user activity is detected
+  ['click', 'keydown', 'mousemove', 'scroll'].forEach(evt =>
+    document.addEventListener(evt, () => {
+      clearTimeout(showWarning);
+      resetWarning();
+      setTimeout(showWarning, warningDelay);
+    })
+  );
+})();
