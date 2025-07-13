@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Temporary to Permanent Family ID</title>
+  <title>PPP Temporary ID Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #eef4fb;
+      background: #eef5fb;
       text-align: center;
       padding-top: 100px;
     }
@@ -15,50 +15,91 @@
       font-size: 16px;
       margin: 10px;
       width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
     .btn {
       background-color: #005fa2;
       color: white;
       border: none;
       cursor: pointer;
-    }
-    #result {
-      margin-top: 20px;
-      font-size: 18px;
       font-weight: bold;
+    }
+    #output {
+      margin-top: 30px;
+      font-size: 20px;
       color: green;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <h2>Family ID Auto Converter</h2>
-  <input type="text" id="tempID" placeholder="Enter Temp ID (e.g. T4BMD6494)" />
-  <br />
-  <button class="btn" onclick="convertID()">Get Permanent ID</button>
+  <h2>Generate 8-Digit PPP ID</h2>
 
-  <div id="result"></div>
+  <input type="text" id="permID" placeholder="Enter Family ID (e.g. T4BMD6494)" />
+  <br />
+  <button class="btn" onclick="generatePPP()">Generate PPP ID</button>
+
+  <div id="output"></div>
 
   <script>
-  let tempID = "1ylx5458".trim().toUpperCase(); // → "1YLX5458"
+    function generatePPP() {
+      let input = document.getElementById("permID").value.trim().toUpperCase();
 
-  // Clean non-alphanumeric and force start with T
-  tempID = tempID.replace(/[^A-Z0-9]/g, '');
-  if (tempID[0] !== 'T') {
-    tempID = 'T' + tempID;
-  }
+      // Auto-fix: remove non-alphanumeric
+      input = input.replace(/[^A-Z0-9]/g, '');
+      if (input === '') {
+        document.getElementById("output").innerText = "❌ Please enter a valid Family ID.";
+        return;
+      }
 
-  // Convert to permanent
-  const numeric = tempID
-    .substring(1)
-    .split('')
-    .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+      // Simulate: Convert permanent Family ID into a fixed 8-character token
+      const hash = sha256(input);
+      let tempID = "";
 
-  const permanentID = "HH" + (10000000 + numeric).toString().slice(0, 8);
+      // Use first 8 characters from hash, mapped to alphanumerics
+      for (let i = 0; i < 8; i++) {
+        const code = hash.charCodeAt(i);
+        const ch = (code % 36).toString(36); // 0–9 + a–z
+        tempID += ch;
+      }
 
-  console.log("Permanent Family ID:", permanentID);
-</script>
+      document.getElementById("output").innerText = `✅ Your 8-digit PPP ID: ${tempID}`;
+    }
 
+    // Simple SHA-256 function using built-in crypto
+    function sha256(str) {
+      const utf8 = new TextEncoder().encode(str);
+      return crypto.subtle.digest("SHA-256", utf8).then(buffer => {
+        const hex = Array.from(new Uint8Array(buffer))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('');
+        return hex;
+      }).then(hex => hex);
+    }
+  </script>
+
+  <script>
+    // Call async SHA from button
+    async function generatePPP() {
+      let input = document.getElementById("permID").value.trim().toUpperCase();
+      input = input.replace(/[^A-Z0-9]/g, '');
+      if (input === '') {
+        document.getElementById("output").innerText = "❌ Please enter a valid Family ID.";
+        return;
+      }
+
+      const hash = await sha256(input);
+      let tempID = "";
+      for (let i = 0; i < 8; i++) {
+        const code = hash.charCodeAt(i);
+        tempID += (code % 36).toString(36);
+      }
+
+      document.getElementById("output").innerText = `✅ Your 8-digit PPP ID: ${tempID}`;
+    }
+  </script>
 
 </body>
 </html>
