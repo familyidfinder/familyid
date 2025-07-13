@@ -23,6 +23,11 @@
     <h5 class="text-success">✅ Family ID Found:</h5>
     <h2 id="familyId"></h2>
     <p id="memberInfo"></p>
+
+    <!-- 🔗 Added Haryana Portal Button -->
+    <a href="https://fasal.haryana.gov.in/home/login" class="btn btn-success mt-3" target="_blank">
+  Go to Haryana Portal ↗
+</a>
   </div>
 </div>
 
@@ -34,23 +39,26 @@ function sendRequest() {
     return;
   }
 
- ✅ PPP Simulator running at http://localhost:3000/Home/GetFDbyAadhar?aadharnum=${aadhaar}`)
+  axios.post(`http://localhost:3000/Home/GetFDbyAadhar?aadharnum=${aadhaar}`)
     .then(res => {
       if (res.data.success) {
+        const payload = res.data.Payload[0];
         document.getElementById("step1").style.display = "none";
         document.getElementById("result").style.display = "block";
-        const payload = res.data.Payload[0];
         document.getElementById("familyId").textContent = payload.familyID;
         document.getElementById("memberInfo").textContent = `Member: ${payload.nameLL} (${payload.memberID})`;
+
+        // ✅ Redirect in 3 seconds
+        setTimeout(() => {
+  window.location.href = "https://fasal.haryana.gov.in/home/login";
+}, 3000);
       } else {
         Swal.fire("Failed", res.data.message || "Aadhaar not found.", "error");
       }
     })
-    .catch(err => {
-  console.error("Server error:", err);
-  alert("Server not responding. Check if backend is running.");
-});
-
+    .catch(() => {
+      // No error shown
+    });
 }
 </script>
 
