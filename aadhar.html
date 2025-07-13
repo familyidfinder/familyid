@@ -47,9 +47,10 @@ function sendRequest() {
       }
     })
     .catch(err => {
-      console.error(err);
-      Swal.fire("Error", "Something went wrong.", "error");
-    });
+  console.error("Server error:", err);
+  alert("Server not responding. Check if backend is running.");
+});
+
 }
 </script>
 
