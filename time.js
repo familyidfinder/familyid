@@ -1,18 +1,36 @@
-const SESSION_TIMEOUT_MS = 1 * 60 * 1000; // 1 minute
+ let countdownSeconds = 300; // 5 minutes = 300 seconds
+    let timerDisplay = document.getElementById("timer");
 
-let timeout;
+    function updateTimerDisplay() {
+      let minutes = Math.floor(countdownSeconds / 60);
+      let seconds = countdownSeconds % 60;
+      timerDisplay.textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 
-function resetSessionTimer() {
-  clearTimeout(timeout);
-  timeout = setTimeout(() => {
-    alert("Session expired due to inactivity.");
-    window.location.href = "index.html"; // Replace with your login or start page
-  }, SESSION_TIMEOUT_MS);
-}
+    function startCountdown() {
+      updateTimerDisplay();
+      const interval = setInterval(() => {
+        countdownSeconds--;
+        updateTimerDisplay();
 
-// Reset on user activity
-['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
-  document.addEventListener(event, resetSessionTimer);
-});
+        if (countdownSeconds <= 0) {
+          clearInterval(interval);
+          alert("Session expired!");
+          window.location.href = "logout.html"; // Redirect after timeout
+        }
+      }, 1000);
+    }
 
-resetSessionTimer(); // Start timer on page load
+    // Reset countdown on activity
+    function resetCountdown() {
+      countdownSeconds = 300;
+      updateTimerDisplay();
+    }
+
+    // Events to reset countdown
+    window.onload = startCountdown;
+    document.onmousemove = resetCountdown;
+    document.onkeypress = resetCountdown;
+    document.ontouchstart = resetCountdown;
+    document.onclick = resetCountdown;
