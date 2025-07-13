@@ -46,8 +46,36 @@
     .main-content {
       margin-left: 220px;
       padding: 20px;
+     .button-group {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
-     #session-timer {
+
+    #session-timer {
       top: 10px;
       right: 20px;
       background-color: #007bff;
