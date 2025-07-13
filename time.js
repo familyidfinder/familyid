@@ -1,31 +1,18 @@
- let sessionTime = 1800; // 30 minutes
-  const minutesSpan = document.getElementById("minutes");
-  const secondsSpan = document.getElementById("seconds");
-  const sessionTimerDiv = document.getElementById("session-timer");
-  const sessionExpiredDiv = document.getElementById("session-expired");
+const SESSION_TIMEOUT_MS = 1 * 60 * 1000; // 1 minute
 
-  const updateTimer = () => {
-    const minutes = Math.floor(sessionTime / 60);
-    const seconds = sessionTime % 60;
+let timeout;
 
-    minutesSpan.textContent = minutes.toString().padStart(2, '0');
-    secondsSpan.textContent = seconds.toString().padStart(2, '0');
+function resetSessionTimer() {
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    alert("Session expired due to inactivity.");
+    window.location.href = "index.html"; // Replace with your login or start page
+  }, SESSION_TIMEOUT_MS);
+}
 
-    if (sessionTime <= 0) {
-      clearInterval(timer);
+// Reset on user activity
+['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+  document.addEventListener(event, resetSessionTimer);
+});
 
-      // Hide timer, show red expired banner
-      sessionTimerDiv.style.display = 'none';
-      sessionExpiredDiv.style.display = 'block';
-
-      // Redirect after a short delay
-      setTimeout(() => {
-        window.location.href = "login.html"; // Change to your login page
-      }, 3000); // 3 seconds
-    }
-
-    sessionTime--;
-  };
-
-  updateTimer(); // Initialize display
-  const timer = setInterval(updateTimer, 1000);
+resetSessionTimer(); // Start timer on page load
