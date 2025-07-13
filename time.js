@@ -1,5 +1,5 @@
   // Initial session time in seconds (30 minutes)
-  let sessionSeconds = 30 * 60;
+  let sessionSeconds = 1 * 60;
 
   // Update the countdown timer display
   function updateSessionDisplay() {
