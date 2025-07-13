@@ -1,20 +1,26 @@
-let countdownSeconds = 300; // 5 minutes = 300 seconds
-    const timerDisplay = document.getElementById("timer");
+let countdownSeconds = 300; // 5 minutes
 
-    function updateTimer() {
+    function updateTimerDisplay() {
       const minutes = Math.floor(countdownSeconds / 60);
       const seconds = countdownSeconds % 60;
-      timerDisplay.textContent = 
+      document.getElementById("timer").textContent = 
         `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-      if (countdownSeconds > 0) {
-        countdownSeconds--;
-      } else {
-        clearInterval(timerInterval);
-        alert("Session expired! Redirecting to login page.");
-        // window.location.href = "login.html"; // optional redirect
-      }
     }
 
-    const timerInterval = setInterval(updateTimer, 1000);
-    updateTimer(); // initial call to avoid 1-second delay
+    const timerInterval = setInterval(() => {
+      if (countdownSeconds > 0) {
+        countdownSeconds--;
+        updateTimerDisplay();
+      } else {
+        clearInterval(timerInterval);
+        alert("Session expired!");
+        window.location.href = "login.html"; // Redirect to login page
+      }
+    }, 1000);
+
+    updateTimerDisplay(); // Initial render
+
+    document.getElementById("logout").addEventListener("click", () => {
+      clearInterval(timerInterval);
+      window.location.href = "login.html"; // Redirect on logout
+    });
