@@ -1,39 +1,24 @@
-let sessionTime = 1800; // 30 minutes
-  const minutesSpan = document.getElementById("minutes");
-  const secondsSpan = document.getElementById("seconds");
-  const sessionTimerDiv = document.getElementById("session-timer");
-  const sessionExpiredDiv = document.getElementById("session-expired");
+const session-timer = 10 * 60 * 1000; // 10 minutes
+  let lastActivityTime = Date.now();
 
-  const updateTimer = () => {
-    const minutes = Math.floor(sessionTime / 60);
-    const seconds = sessionTime % 60;
-
-    minutesSpan.textContent = minutes.toString().padStart(2, '0');
-    secondsSpan.textContent = seconds.toString().padStart(2, '0');
-
-    if (sessionTime <= 0) {
-      clearInterval(timer);
-
-      // Hide timer, show red expired banner
-      sessionTimerDiv.style.display = 'none';
-      sessionExpiredDiv.style.display = 'block';
-
-      // Redirect after a short delay
-      setTimeout(() => {
-        window.location.href = "index.html"; // Change to your login page
-      }, 3000); // 3 seconds
+  // Redirect when timed out
+  function checkSession() {
+    const now = Date.now();
+    if (now - lastActivityTime > session-timer) {
+      alert("Session expired due to inactivity.");
+      window.location.href = "index.html"; // Change to your target page
     }
+  }
 
-    sessionTime--;
-  };
+  // Update last activity time
+  function updateActivity() {
+    lastActivityTime = Date.now();
+  }
 
-  updateTimer(); // Initialize display
-  const timer = setInterval(updateTimer, 1000);
-
-function logoutNow() {
-  firebase.auth().signOut().then(() => {
-    clearInterval(timer); // stop session timer
-    alert("You have been logged out.");
-    window.location.href = "index.html";
+  // Track user activity
+  ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+    document.addEventListener(event, updateActivity);
   });
-}
+
+  // Check session every 10 seconds (works even in background)
+  setInterval(checkSession, 10000); // 10 sec interval
