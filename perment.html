@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Family ID Converter</title>
+  <title>Temporary to Permanent Family ID</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f9ff;
+      background: #eef4fb;
       text-align: center;
       padding-top: 100px;
     }
@@ -14,7 +14,7 @@
       padding: 12px;
       font-size: 16px;
       margin: 10px;
-      width: 280px;
+      width: 300px;
     }
     .btn {
       background-color: #005fa2;
@@ -32,34 +32,33 @@
 </head>
 <body>
 
-  <h2>Convert Temporary Family ID to Permanent</h2>
-  <input type="text" id="tempID" placeholder="Enter Temp Family ID (e.g. T4BMD6494)" />
+  <h2>Family ID Auto Converter</h2>
+  <input type="text" id="tempID" placeholder="Enter Temp ID (e.g. T4BMD6494)" />
   <br />
-  <button class="btn" onclick="convertID()">Convert</button>
+  <button class="btn" onclick="convertID()">Get Permanent ID</button>
 
   <div id="result"></div>
 
   <script>
-    function convertID() {
-      const tempID = document.getElementById("tempID").value.trim().toUpperCase();
+  let tempID = "1ylx5458".trim().toUpperCase(); // → "1YLX5458"
 
-      if (!/^T[A-Z0-9]{7}$/.test(tempID)) {
-        document.getElementById("result").innerText = "❌ Invalid Temporary Family ID format.";
-        return;
-      }
+  // Clean non-alphanumeric and force start with T
+  tempID = tempID.replace(/[^A-Z0-9]/g, '');
+  if (tempID[0] !== 'T') {
+    tempID = 'T' + tempID;
+  }
 
-      // Simulate conversion logic
-      const numeric = tempID
-        .substring(1)
-        .split('')
-        .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  // Convert to permanent
+  const numeric = tempID
+    .substring(1)
+    .split('')
+    .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
 
-      const permanentID = "HH" + (10000000 + numeric).toString().slice(0, 8);
+  const permanentID = "HH" + (10000000 + numeric).toString().slice(0, 8);
 
-      document.getElementById("result").innerText =
-        "✅ Permanent Family ID: " + permanentID;
-    }
-  </script>
+  console.log("Permanent Family ID:", permanentID);
+</script>
+
 
 </body>
 </html>
