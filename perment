@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Family ID Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f9ff;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input, button {
+      padding: 12px;
+      font-size: 16px;
+      margin: 10px;
+      width: 280px;
+    }
+    .btn {
+      background-color: #005fa2;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Convert Temporary Family ID to Permanent</h2>
+  <input type="text" id="tempID" placeholder="Enter Temp Family ID (e.g. T4BMD6494)" />
+  <br />
+  <button class="btn" onclick="convertID()">Convert</button>
+
+  <div id="result"></div>
+
+  <script>
+    function convertID() {
+      const tempID = document.getElementById("tempID").value.trim().toUpperCase();
+
+      if (!/^T[A-Z0-9]{7}$/.test(tempID)) {
+        document.getElementById("result").innerText = "❌ Invalid Temporary Family ID format.";
+        return;
+      }
+
+      // Simulate conversion logic
+      const numeric = tempID
+        .substring(1)
+        .split('')
+        .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+
+      const permanentID = "HH" + (10000000 + numeric).toString().slice(0, 8);
+
+      document.getElementById("result").innerText =
+        "✅ Permanent Family ID: " + permanentID;
+    }
+  </script>
+
+</body>
+</html>
