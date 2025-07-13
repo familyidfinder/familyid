@@ -83,7 +83,11 @@
      <header style="display: flex; align-items: center; justify-content: center; background-color: #005fa2; color: white; padding: 20px 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: relative;">
      <img src="https://familyidfinder.github.io/familyid/hry.png" height="80" width="80" alt="Haryana Logo" style="position: absolute; left: 40px;">
      <span style="font-size: 40px; font-weight: bold;">Govt. of Haryana - Services Portal</span>
-     <button id="logout-btn" onclick="logout()">
+    <div id="session-timer">
+      <span id="minutes">30</span>:<span id="seconds">00</span>
+    </div>
+    <button id="logout-btn" onclick="logoutNow()">Logout</button>
+  </header>
   padding: 10px 16px;
   background-color: #dc3545;
   color: white;
