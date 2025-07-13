@@ -17,7 +17,7 @@
         if (countdownSeconds <= 0) {
           clearInterval(interval);
           alert("Session expired!");
-          window.location.href = "logout.html"; // Redirect after timeout
+          window.location.href = "indext.html"; // Redirect after timeout
         }
       }, 1000);
     }
