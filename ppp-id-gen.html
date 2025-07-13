@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>PPP Temporary ID Generator</title>
+  <meta charset="UTF-8" />
+  <title>PPP Access Code Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -25,79 +25,23 @@
       cursor: pointer;
       font-weight: bold;
     }
-    #output {
-      margin-top: 30px;
-      font-size: 20px;
-      color: green;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
 
-  <h2>Generate 8-Digit PPP ID</h2>
+  <h2>Enter Family ID</h2>
 
-  <input type="text" id="permID" placeholder="Enter Family ID (e.g. T4BMD6494)" />
+  <input type="text" id="permID" placeholder="Enter any ID (e.g. T4BMD6494)" />
   <br />
-  <button class="btn" onclick="generatePPP()">Generate PPP ID</button>
-
-  <div id="output"></div>
+  <button class="btn" onclick="goToOutput()">Get Access Code</button>
 
   <script>
-    function generatePPP() {
-      let input = document.getElementById("permID").value.trim().toUpperCase();
-
-      // Auto-fix: remove non-alphanumeric
-      input = input.replace(/[^A-Z0-9]/g, '');
-      if (input === '') {
-        document.getElementById("output").innerText = "❌ Please enter a valid Family ID.";
-        return;
-      }
-
-      // Simulate: Convert permanent Family ID into a fixed 8-character token
-      const hash = sha256(input);
-      let tempID = "";
-
-      // Use first 8 characters from hash, mapped to alphanumerics
-      for (let i = 0; i < 8; i++) {
-        const code = hash.charCodeAt(i);
-        const ch = (code % 36).toString(36); // 0–9 + a–z
-        tempID += ch;
-      }
-
-      document.getElementById("output").innerText = `✅ Your 8-digit PPP ID: ${tempID}`;
-    }
-
-    // Simple SHA-256 function using built-in crypto
-    function sha256(str) {
-      const utf8 = new TextEncoder().encode(str);
-      return crypto.subtle.digest("SHA-256", utf8).then(buffer => {
-        const hex = Array.from(new Uint8Array(buffer))
-          .map(b => b.toString(16).padStart(2, '0'))
-          .join('');
-        return hex;
-      }).then(hex => hex);
-    }
-  </script>
-
-  <script>
-    // Call async SHA from button
-    async function generatePPP() {
+    function goToOutput() {
       let input = document.getElementById("permID").value.trim().toUpperCase();
       input = input.replace(/[^A-Z0-9]/g, '');
-      if (input === '') {
-        document.getElementById("output").innerText = "❌ Please enter a valid Family ID.";
-        return;
-      }
-
-      const hash = await sha256(input);
-      let tempID = "";
-      for (let i = 0; i < 8; i++) {
-        const code = hash.charCodeAt(i);
-        tempID += (code % 36).toString(36);
-      }
-
-      document.getElementById("output").innerText = `✅ Your 8-digit PPP ID: ${tempID}`;
+      if (!input) input = "DEFAULT";
+      localStorage.setItem("familyID", input);
+      window.location.href = "output.html";
     }
   </script>
 
