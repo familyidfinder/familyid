@@ -1,24 +1,38 @@
-const session-timer = 10 * 60 * 1000; // 10 minutes
-  let lastActivityTime = Date.now();
+  // Initial session time in seconds (30 minutes)
+  let sessionSeconds = 30 * 60;
 
-  // Redirect when timed out
-  function checkSession() {
-    const now = Date.now();
-    if (now - lastActivityTime > session-timer) {
-      alert("Session expired due to inactivity.");
-      window.location.href = "index.html"; // Change to your target page
+  // Update the countdown timer display
+  function updateSessionDisplay() {
+    const minutes = Math.floor(sessionSeconds / 60).toString().padStart(2, '0');
+    const seconds = (sessionSeconds % 60).toString().padStart(2, '0');
+    const sessionLabel = document.getElementById('session-timer');
+    if (sessionLabel) {
+      sessionLabel.textContent = `Session: ${minutes}:${seconds}`;
     }
   }
+function updateActivity() { 
+  lastActivityTime = Date.now();
+}
+  // Countdown every second
+  const countdownInterval = setInterval(() => {
+    sessionSeconds--;
 
-  // Update last activity time
-  function updateActivity() {
-    lastActivityTime = Date.now();
+    if (sessionSeconds <= 0) {
+      clearInterval(countdownInterval);
+      alert("Session expired. Logging out.");
+      window.location.href = "index.html"; // Replace with your login page
+    }
+
+    updateSessionDisplay();
+  }, 1000);
+
+  // Reset timer on user activity
+  function resetTimer() {
+    sessionSeconds = 30 * 60;
   }
 
-  // Track user activity
   ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
-    document.addEventListener(event, updateActivity);
+    document.addEventListener(event, resetTimer);
   });
 
-  // Check session every 10 seconds (works even in background)
-  setInterval(checkSession, 10000); // 10 sec interval
+  updateSessionDisplay(); // Initial display
