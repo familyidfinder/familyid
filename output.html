@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PPP Access Code Output</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2faff;
+      text-align: center;
+      padding-top: 120px;
+    }
+    .code-box {
+      font-size: 22px;
+      color: green;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+    .label {
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>✅ Your PPP Access Code</h2>
+  <div class="label">Converted from:</div>
+  <div id="original" style="font-weight: bold;"></div>
+
+  <div class="code-box" id="output"></div>
+
+  <script>
+    async function sha256(str) {
+      const utf8 = new TextEncoder().encode(str);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", utf8);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function generateCode() {
+      let input = localStorage.getItem("familyID") || "DEFAULT";
+      document.getElementById("original").innerText = input;
+
+      const hash = await sha256(input);
+      let accessCode = '';
+      for (let i = 0; i < 8; i++) {
+        const code = hash.charCodeAt(i);
+        accessCode += (code % 36).toString(36);
+      }
+
+      document.getElementById("output").innerText = accessCode;
+    }
+
+    generateCode();
+  </script>
+
+</body>
+</html>
