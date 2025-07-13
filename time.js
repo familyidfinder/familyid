@@ -1,38 +1,31 @@
-  // Initial session time in seconds (30 minutes)
-  let session-timer = 1 * 60;
+ let sessionTime = 1800; // 30 minutes
+  const minutesSpan = document.getElementById("minutes");
+  const secondsSpan = document.getElementById("seconds");
+  const sessionTimerDiv = document.getElementById("session-timer");
+  const sessionExpiredDiv = document.getElementById("session-expired");
 
-  // Update the countdown timer display
-  function updateSessionDisplay() {
-    const minutes = Math.floor(session-timer / 60).toString().padStart(2, '0');
-    const seconds = (session-timer % 60).toString().padStart(2, '0');
-    const sessionLabel = document.getElementById('session-timer');
-    if (sessionLabel) {
-      sessionLabel.textContent = `Session: ${minutes}:${seconds}`;
+  const updateTimer = () => {
+    const minutes = Math.floor(sessionTime / 60);
+    const seconds = sessionTime % 60;
+
+    minutesSpan.textContent = minutes.toString().padStart(2, '0');
+    secondsSpan.textContent = seconds.toString().padStart(2, '0');
+
+    if (sessionTime <= 0) {
+      clearInterval(timer);
+
+      // Hide timer, show red expired banner
+      sessionTimerDiv.style.display = 'none';
+      sessionExpiredDiv.style.display = 'block';
+
+      // Redirect after a short delay
+      setTimeout(() => {
+        window.location.href = "login.html"; // Change to your login page
+      }, 3000); // 3 seconds
     }
-  }
-function updateActivity() { 
-  lastActivityTime = Date.now();
-}
-  // Countdown every second
-  const countdownInterval = setInterval(() => {
-    session-timer--;
 
-    if (session-timer <= 0) {
-      clearInterval(countdownInterval);
-      alert("Session expired. Logging out.");
-      window.location.href = "index.html"; // Replace with your login page
-    }
+    sessionTime--;
+  };
 
-    updateSessionDisplay();
-  }, 1000);
-
-  // Reset timer on user activity
-  function resetTimer() {
-    session-timer = 30 * 60;
-  }
-
-  ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
-    document.addEventListener(event, resetTimer);
-  });
-
-  updateSessionDisplay(); // Initial display
+  updateTimer(); // Initialize display
+  const timer = setInterval(updateTimer, 1000);
