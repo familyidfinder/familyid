@@ -1,20 +1,20 @@
- // Start at 30 minutes = 1800 seconds
-    let sessiontime = 1 * 60;
+  // Start at 30 minutes = 1800 seconds
+    let totalSeconds = 30 * 60;
 
     function updateSessionTimer() {
-      const minutes = Math.floor(sessiontime / 60);
-      const seconds = sessiontime % 60;
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
 
       document.getElementById("sessionTimerValue").textContent = minutes.toString().padStart(2, '0');
       document.getElementById("secondsTimer").textContent = seconds.toString().padStart(2, '0');
 
-      if (sessiontime > 0) {
-        sessiontime--;
+      if (totalSeconds > 0) {
+        totalSeconds--;
       } else {
         clearInterval(timerInterval);
         alert("Session expired!");
         // Optionally redirect:
-        // window.location.href = "index.html";
+        // window.location.href = "relogin.html";
       }
     }
 
