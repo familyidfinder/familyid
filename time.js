@@ -1,35 +1,25 @@
-let sessionTime = 1600; // 20 minutes
-  const minutesSpan = document.getElementById("minutes");
-  const secondsSpan = document.getElementById("seconds");
-  const sessionTimerDiv = document.getElementById("session-timer");
-  const sessionExpiredDiv = document.getElementById("session-expired");
+ // Start at 30 minutes = 1800 seconds
+    let sessiontime = 30 * 60;
 
-  const updateTimer = () => {
-    const minutes = Math.floor(sessionTime / 60);
-    const seconds = sessionTime % 60;
+    function updateSessionTimer() {
+      const minutes = Math.floor(sessiontime / 60);
+      const seconds = sessiontime % 60;
 
-    minutesSpan.textContent = minutes.toString().padStart(2, '0');
-    secondsSpan.textContent = seconds.toString().padStart(2, '0');
+      document.getElementById("sessionTimerValue").textContent = minutes.toString().padStart(2, '0');
+      document.getElementById("secondsTimer").textContent = seconds.toString().padStart(2, '0');
 
-    if (sessionTime <= 0) {
-      clearInterval(timer);
-
-      // Hide timer, show red expired banner
-      sessionTimerDiv.style.display = 'none';
-      sessionExpiredDiv.style.display = 'block';
-
-      // Redirect after a short delay
-      setTimeout(() => {
-        window.location.href = "index.html"; // Change to your login page
-      }, 3000); // 3 seconds
+      if (sessiontime > 0) {
+        sessiontime--;
+      } else {
+        clearInterval(timerInterval);
+        alert("Session expired!");
+        // Optionally redirect:
+        // window.location.href = "index.html";
+      }
     }
 
-    sessionTime--;
-  };
-
-  updateTimer(); // Initialize display
-  const timer = setInterval(updateTimer, 1000);
-
+    const timerInterval = setInterval(updateSessionTimer, 1000);
+    updateSessionTimer(); // Run immediately on load
   function logoutNow() {
     clearInterval(timer); // stop session timer
     alert("You have been logged out.");
