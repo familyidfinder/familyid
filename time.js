@@ -1,5 +1,5 @@
  // Start at 30 minutes = 1800 seconds
-    let sessiontime = 30 * 60;
+    let sessiontime = 1 * 60;
 
     function updateSessionTimer() {
       const minutes = Math.floor(sessiontime / 60);
