@@ -5,7 +5,7 @@
     <label style="color: black;">&nbsp;&nbsp;</label>       
   </p>
 
-  <button class="logout-button" onclick="logoutNow()">Logout Now</button>
+  <button class="logout-button" onclick="logoutNow()">Logout</button>
 
   <script>
     let minutes = 30;
