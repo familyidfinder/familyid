@@ -5,6 +5,8 @@
     <label style="color: black;">&nbsp;&nbsp;</label>       
   </p>
 
+  <button class="logout-button" onclick="logoutNow()">Logout Now</button>
+
   <script>
     let minutes = 30;
     let seconds = 0;
@@ -12,11 +14,9 @@
     function updateSessionTimer() {
       if (seconds === 0) {
         if (minutes === 0) {
-          // Timer ended
           clearInterval(timerInterval);
           alert("Session expired!");
-          // Optionally redirect or reload
-          // location.href = "relogin.html";
+          window.location.href = "index.html"; // Redirect on timeout
           return;
         }
         minutes--;
@@ -30,8 +30,8 @@
     }
 
     const timerInterval = setInterval(updateSessionTimer, 1000);
-  function logoutNow() {
-    clearInterval(timer); // stop session timer
-    alert("You have been logged out.");
-    window.location.href = "index.html"; // change to your login page
-  }
+
+    function logoutNow() {
+      clearInterval(timerInterval); // Stop the session timer
+      alert("You have been logged out.");
+      window.location.href = "index.html"; // Redirect to login or homepage
