@@ -1,25 +1,32 @@
- let sessionTime = 1800; // 30 minutes in seconds
+const sessionDuration = 30 * 60 * 1000; // 30 minutes in milliseconds
+  const endTime = Date.now() + sessionDuration;
 
   const minutesSpan = document.getElementById("minutes");
   const secondsSpan = document.getElementById("seconds");
+  const sessionTimerDiv = document.getElementById("session-timer");
+  const sessionExpiredDiv = document.getElementById("session-expired");
 
-  const updateTimer = () => {
-    const minutes = Math.floor(sessionTime / 60);
-    const seconds = sessionTime % 60;
+  function updateTimer() {
+    const remaining = endTime - Date.now();
+
+    if (remaining <= 0) {
+      clearInterval(timer);
+      sessionTimerDiv.style.display = 'none';
+      sessionExpiredDiv.style.display = 'block';
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 3000);
+      return;
+    }
+
+    const minutes = Math.floor(remaining / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
 
     minutesSpan.textContent = minutes.toString().padStart(2, '0');
     secondsSpan.textContent = seconds.toString().padStart(2, '0');
+  }
 
-    if (sessionTime <= 0) {
-      clearInterval(timer);
-      alert("Session expired. Redirecting to login.");
-      window.location.href = "index.html"; // Replace with your login or re-auth URL
-    }
-
-    sessionTime--;
-  };
-
-  updateTimer(); // Initialize display
+  updateTimer();
   const timer = setInterval(updateTimer, 1000);
 function logoutNow() {
     sessionStorage.removeItem("isLoggedIn");
