@@ -3,7 +3,7 @@
 <head>
   <title>PPP Family</title>
   <style>
-     #sessionTimer {
+     #session-timer {
       position: fixed;
       top: 10px;
       right: 20px;
@@ -50,12 +50,9 @@
       z-index: 9999;">
   Logout
 </button>
- <p id="sessionTimer">
-      <label id="sessionTimerValue" style="color: black;">24</label>
-      <label style="color: black;">&nbsp;&nbsp;:&nbsp;</label>
-      <label id="secondsTimer" style="color: red;">04</label>
-      <label style="color: black;">&nbsp;&nbsp;</label>       
-    </p>
+<div id="session-timer">
+  Session: <span id="minutes">30</span>:<span id="seconds">00</span>
+</div>
 <div id="session-expired">
   Session Expired. Redirecting to login...
 </div>
