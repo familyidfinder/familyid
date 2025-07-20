@@ -1,37 +1,42 @@
-<p id="sessionTimer">
-    <label id="sessionTimerValue">30</label>
-    <label style="color: black;">&nbsp;&nbsp;:&nbsp;</label>
-    <label id="secondsTimer" style="color: red;">00</label>
-    <label style="color: black;">&nbsp;&nbsp;</label>       
-  </p>
+ let countdownSeconds = 300; // 5 minutes = 300 seconds
+    let timerDisplay = document.getElementById("timer");
 
-  <button class="logout-button" onclick="logoutNow()">Logout</button>
-
-  <script>
-    let minutes = 30;
-    let seconds = 0;
-
-    function updateSessionTimer() {
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(timerInterval);
-          alert("Session expired!");
-          window.location.href = "index.html"; // Redirect on timeout
-          return;
-        }
-        minutes--;
-        seconds = 59;
-      } else {
-        seconds--;
-      }
-
-      document.getElementById("sessionTimerValue").textContent = minutes.toString().padStart(2, '0');
-      document.getElementById("secondsTimer").textContent = seconds.toString().padStart(2, '0');
+    function updateTimerDisplay() {
+      let minutes = Math.floor(countdownSeconds / 60);
+      let seconds = countdownSeconds % 60;
+      timerDisplay.textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
 
-    const timerInterval = setInterval(updateSessionTimer, 1000);
+    function startCountdown() {
+      updateTimerDisplay();
+      const interval = setInterval(() => {
+        countdownSeconds--;
+        updateTimerDisplay();
 
-    function logoutNow() {
-      clearInterval(timerInterval); // Stop the session timer
+        if (countdownSeconds <= 0) {
+          clearInterval(interval);
+          alert("Session expired!");
+          window.location.href = "index.html"; // Redirect after timeout
+        }
+      }, 1000);
+    }
+
+    // Reset countdown on activity
+    function resetCountdown() {
+      countdownSeconds = 300;
+      updateTimerDisplay();
+    }
+
+    // Events to reset countdown
+    window.onload = startCountdown;
+    document.onkeypress = resetCountdown;
+    document.ontouchstart = resetCountdown;
+    document.onclick = resetCountdown;
       alert("You have been logged out.");
       window.location.href = "index.html"; // Redirect to login or homepage
+function logoutNow() {
+    sessionStorage.removeItem("isLoggedIn");
+    alert("You have been logged out.");
+    window.location.href = "index.html";
+  }
