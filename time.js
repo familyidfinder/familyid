@@ -1,40 +1,26 @@
- let countdownSeconds = 300; // 5 minutes = 300 seconds
-    let timerDisplay = document.getElementById("timer");
+ let sessionTime = 1800; // 30 minutes in seconds
 
-    function updateTimerDisplay() {
-      let minutes = Math.floor(countdownSeconds / 60);
-      let seconds = countdownSeconds % 60;
-      timerDisplay.textContent = 
-        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  const minutesSpan = document.getElementById("minutes");
+  const secondsSpan = document.getElementById("seconds");
+
+  const updateTimer = () => {
+    const minutes = Math.floor(sessionTime / 60);
+    const seconds = sessionTime % 60;
+
+    minutesSpan.textContent = minutes.toString().padStart(2, '0');
+    secondsSpan.textContent = seconds.toString().padStart(2, '0');
+
+    if (sessionTime <= 0) {
+      clearInterval(timer);
+      alert("Session expired. Redirecting to login.");
+      window.location.href = "index.html"; // Replace with your login or re-auth URL
     }
 
-    function startCountdown() {
-      updateTimerDisplay();
-      const interval = setInterval(() => {
-        countdownSeconds--;
-        updateTimerDisplay();
+    sessionTime--;
+  };
 
-        if (countdownSeconds <= 0) {
-          clearInterval(interval);
-          alert("Session expired!");
-          window.location.href = "index.html"; // Redirect after timeout
-        }
-      }, 1000);
-    }
-
-    // Reset countdown on activity
-    function resetCountdown() {
-      countdownSeconds = 300;
-      updateTimerDisplay();
-    }
-
-    // Events to reset countdown
-    window.onload = startCountdown;
-    document.onkeypress = resetCountdown;
-    document.ontouchstart = resetCountdown;
-    document.onclick = resetCountdown;
-      alert("You have been logged out.");
-      window.location.href = "index.html"; // Redirect to login or homepage
+  updateTimer(); // Initialize display
+  const timer = setInterval(updateTimer, 1000);
 function logoutNow() {
     sessionStorage.removeItem("isLoggedIn");
     alert("You have been logged out.");
