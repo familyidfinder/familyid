@@ -23,7 +23,7 @@ let sessionTime = 1800; // 30 minutes
         window.location.href = "login.html"; // Change to your login page
       }, 3000); // 3 seconds
     }
-
+    
     sessionTime--;
   };
 
