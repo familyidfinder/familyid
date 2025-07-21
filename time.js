@@ -30,6 +30,16 @@ let sessionTime = 1800; // 30 minutes
   updateTimer(); // Initialize display
   const timer = setInterval(updateTimer, 1000);
 
+    //Block direct access
+    if (!sessionStorage.getItem("loggedIn")) {
+      window.location.href = "index.html";
+    }
+
+    // Clear session on tab/browser close
+    window.addEventListener("beforeunload", function () {
+      sessionStorage.removeItem("loggedIn");
+    });
+
 //logout button
 function logoutNow() {
     sessionStorage.removeItem("isLoggedIn");
