@@ -18,18 +18,14 @@ const sessionDuration = 30 * 60 * 1000; // 30 minutes in milliseconds
       }, 3000);
       return;
     }
-
     const minutes = Math.floor(remaining / 60000);
     const seconds = Math.floor((remaining % 60000) / 1000);
 
     minutesSpan.textContent = minutes.toString().padStart(2, '0');
     secondsSpan.textContent = seconds.toString().padStart(2, '0');
   }
-
   updateTimer();
-  const timer = setInterval(updateTimer, 1000);
-
-
+  const timer = setInterval(updateTimer, 1000)
 //logout button
 function logoutNow() {
     sessionStorage.removeItem("isLoggedIn");
