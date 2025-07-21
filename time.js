@@ -28,6 +28,11 @@ const sessionDuration = 30 * 60 * 1000; // 30 minutes in milliseconds
 
   updateTimer();
   const timer = setInterval(updateTimer, 1000);
+
+  window.addEventListener("beforeunload", function () {
+    sessionStorage.removeItem("loggedIn");
+  });
+
 function logoutNow() {
     sessionStorage.removeItem("isLoggedIn");
     alert("You have been logged out.");
