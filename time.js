@@ -29,11 +29,10 @@ const sessionDuration = 30 * 60 * 1000; // 30 minutes in milliseconds
   updateTimer();
   const timer = setInterval(updateTimer, 1000);
 
-//direct access block
- if (!sessionStorage.getItem("loggedIn")) {
-      // If not logged in, redirect to login page
-      window.location.href = "index.html";
-    }
+  // Clear session on tab/browser close
+  window.addEventListener("beforeunload", function () {
+  sessionStorage.removeItem("loggedIn");
+  });
 
 //logout button
 function logoutNow() {
