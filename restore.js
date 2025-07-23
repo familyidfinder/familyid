@@ -1,16 +1,10 @@
- const maxSessionTime = 30 * 60 * 1000; // 30 minutes
+  const MAX_SESSION_TIME = 30 * 60 * 1000; // 30 min
   const loginStatus = sessionStorage.getItem("isLoggedIn");
   const loginTime = sessionStorage.getItem("loginTime");
+  const now = new Date().getTime();
 
-  if (!loginStatus || loginStatus !== "false" || !loginTime) {
-    // Not logged in
+  if (!loginStatus || loginStatus !== "true" || !loginTime || now - loginTime > MAX_SESSION_TIME) {
+    sessionStorage.clear();
+    alert("Access denied or session expired. Please login again.");
     window.location.href = "index.html";
-  } else {
-    const now = new Date().getTime();
-    if ((now - loginTime) > maxSessionTime) {
-      // Session expired
-      sessionStorage.clear();
-      alert("Session expired. Please login again.");
-      window.location.href = "index.html";
-    }
   }
