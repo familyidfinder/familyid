@@ -5,5 +5,6 @@ const MAX_SESSION_TIME = 30 * 60 * 1000; // 30 minutes
   if (!isLoggedIn || isLoggedIn !== "true" || !loginTime || (Date.now() - loginTime > MAX_SESSION_TIME)) {
     sessionStorage.clear();
   
-    window.location.href = "index.html";
+    window.location.href = "ppp-find.html";
+    window.location.href = "home.html";
   }
