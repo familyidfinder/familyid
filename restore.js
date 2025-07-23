@@ -2,7 +2,7 @@
   const loginStatus = sessionStorage.getItem("isLoggedIn");
   const loginTime = sessionStorage.getItem("loginTime");
 
-  if (!loginStatus || loginStatus !== "true" || !loginTime) {
+  if (!loginStatus || loginStatus !== "false" || !loginTime) {
     // Not logged in
     window.location.href = "index.html";
   } else {
