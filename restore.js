@@ -1,14 +1,16 @@
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    const creationTime = new Date(user.metadata.creationTime);
-    const now = new Date();
-    const minutesOld = (now - creationTime) / 60000;
+ const maxSessionTime = 30 * 60 * 1000; // 30 minutes
+  const loginStatus = sessionStorage.getItem("isLoggedIn");
+  const loginTime = sessionStorage.getItem("loginTime");
 
-    if (minutesOld > 30) {
-      alert("❌ Login not allowed: Account is older than 30 minutes.");
-      firebase.auth().signOut(); // logout immediately
-    } else {
-      console.log("✅ Login allowed");
+  if (!loginStatus || loginStatus !== "true" || !loginTime) {
+    // Not logged in
+    window.location.href = "index.html";
+  } else {
+    const now = new Date().getTime();
+    if ((now - loginTime) > maxSessionTime) {
+      // Session expired
+      sessionStorage.clear();
+      alert("Session expired. Please login again.");
+      window.location.href = "index.html";
     }
   }
-});
