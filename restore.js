@@ -6,5 +6,4 @@ const MAX_SESSION_TIME = 30 * 60 * 1000; // 30 minutes
     sessionStorage.clear();
   
     window.location.href = "ppp-find.html";
-    window.location.href = "home.html";
   }
