@@ -3,6 +3,6 @@
   const loginTime = sessionStorage.getItem("loginTime");
   const now = new Date().getTime();
 
-  if (!loginStatus || !loginTime || 
+  if (!loginStatus || loginStatus !== "true" || !loginTime || now - loginTime > MAX_SESSION_TIME)
     window.location.href = "index.html";
   }
