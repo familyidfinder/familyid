@@ -29,7 +29,6 @@
       font-size: 16px;
       z-index: 10000;
     }
-
   </style>
 </head>
 <body>
@@ -50,12 +49,14 @@
       z-index: 9999;">
   Logout
 </button>
+
 <div id="session-timer">
   Session: <span id="minutes">30</span>:<span id="seconds">00</span>
 </div>
 <div id="session-expired">
   Session Expired. Redirecting to login...
 </div>
+
   <h1>PPP Family</h1>
   <input type="text" id="familyId" placeholder="Enter Family ID" />
   <button onclick="openFamilyDetails()">Search</button>
@@ -70,11 +71,19 @@
         alert("Please enter a family ID.");
       }
     }
+
+    // Enter दबाने पर Search चलाने के लिए
+    document.getElementById("familyId").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        openFamilyDetails();
+      }
+    });
   </script>
+
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="fb.js"></script>
-<script src="time.js"></script>
-<script src="restore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="fb.js"></script>
+  <script src="time.js"></script>
+  <script src="restore.js"></script>
 </body>
 </html>
